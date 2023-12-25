@@ -10,7 +10,6 @@ import Button from "./Button";
 import { toast } from "react-hot-toast";
 import { useUser } from "@/hooks/useUser";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { unstable_getServerSideProps } from "next/dist/build/templates/pages";
 import { useRouter } from "next/navigation";
 
 const UploadModal = () => {
@@ -30,7 +29,6 @@ const UploadModal = () => {
             title:'',
             song: null,
             image: null,
-
         }
     })
 
@@ -87,6 +85,7 @@ const UploadModal = () => {
                 return toast.error('Failed image upload.');
             }
 
+            // Create record
             const{
                 error: supabaseError
             } = await supabaseClient
@@ -109,7 +108,6 @@ const UploadModal = () => {
             toast.success('Song created!');
             reset();
             uploadModal.onClose();
-
         } catch (error) {
             toast.error("something went wrong")
         } finally {
@@ -133,7 +131,6 @@ const UploadModal = () => {
                     {...register('title', { required: true})}
                     placeholder="Song title"
                 />
-
                 <Input 
                     id="author"
                     disabled={isLoading}
